@@ -1,0 +1,118 @@
+<%= form_with model: @url do |form| %>
+  <div class="p-6 border border-gray-300 sm:rounded-md bg-white shadow-md">
+    <div class="mb-4">
+      <div class="flex items-center mb-3">
+        <svg
+          class="h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 512"
+        >
+          <path
+            d="M579.8 267.7c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114L422.3 334.8c-31.5 31.5-82.5 31.5-114 0c-27.9-27.9-31.5-71.8-8.6-103.8l1.1-1.6c10.3-14.4 6.9-34.4-7.4-44.6s-34.4-6.9-44.6 7.4l-1.1 1.6C206.5 251.2 213 330 263 380c56.5 56.5 148 56.5 204.5 0L579.8 267.7zM60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5L217.7 177.2c31.5-31.5 82.5-31.5 114 0c27.9 27.9 31.5 71.8 8.6 103.9l-1.1 1.6c-10.3 14.4-6.9 34.4 7.4 44.6s34.4 6.9 44.6-7.4l1.1-1.6C433.5 260.8 427 182 377 132c-56.5-56.5-148-56.5-204.5 0L60.2 244.3z"
+          />
+        </svg>
+        <%=
+          form.label 'Paste a long URL',
+                     class: 'text-secondary text-sm font-bold inline-block ml-2'
+        %><br />
+      </div>
+      <%=
+        form.text_field :original_url,
+                        value: @original_url,
+                        class: 'w-full p-2 border border-gray-300 rounded-md'
+      %>
+      <% @url.errors.full_messages_for(:original_url).each do |message| %>
+        <div class="text-red-500 mt-2 text-sm"><%= message %></div>
+      <% end %>
+    </div>
+
+    <div class="mb-4">
+      <div class="flex items-center mb-3">
+        <svg
+          class="h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 640 512"
+        >
+          <path
+            d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L489.3 358.2l90.5-90.5c56.5-56.5 56.5-148 0-204.5c-50-50-128.8-56.5-186.3-15.4l-1.6 1.1c-14.4 10.3-17.7 30.3-7.4 44.6s30.3 17.7 44.6 7.4l1.6-1.1c32.1-22.9 76-19.3 103.8 8.6c31.5 31.5 31.5 82.5 0 114l-96 96-31.9-25C430.9 239.6 420.1 175.1 377 132c-52.2-52.3-134.5-56.2-191.3-11.7L38.8 5.1zM239 162c30.1-14.9 67.7-9.9 92.8 15.3c20 20 27.5 48.3 21.7 74.5L239 162zM116.6 187.9L60.2 244.3c-56.5 56.5-56.5 148 0 204.5c50 50 128.8 56.5 186.3 15.4l1.6-1.1c14.4-10.3 17.7-30.3 7.4-44.6s-30.3-17.7-44.6-7.4l-1.6 1.1c-32.1 22.9-76 19.3-103.8-8.6C74 372 74 321 105.5 289.5l61.8-61.8-50.6-39.9zM220.9 270c-2.1 39.8 12.2 80.1 42.2 110c38.9 38.9 94.4 51 143.6 36.3L220.9 270z"
+          />
+        </svg>
+        <%=
+          form.label 'Customize your link',
+                     class:
+                       'text-secondary text-sm font-bold mb-2 inline-block ml-2'
+        %><br />
+      </div>
+
+      <%=
+        form.text_field :short_url,
+                        value: @short_link,
+                        class: 'w-full p-2 border border-gray-300 rounded-md'
+      %>
+      <% @url.errors.full_messages_for(:short_url).each do |message| %>
+        <div class="text-red-500 mt-2 text-sm"><%= message %></div>
+      <% end %>
+    </div>
+    <div class="mt-4">
+      <%=
+        form.submit 'Shorten URL',
+                    class:
+                      'bg-secondary cursor-pointer hover:gradient-to-r hover:from-pink-to-purple text-white font-bold py-2 px-4 rounded w-full transition'
+      %>
+    </div>
+    <% if @short_link %>
+      <div class="my-4">
+        <div class="flex items-center mb-2">
+          <%= link_to short_link_url(short_url: @short_url), target: "_blank", class: "text-blue-600 hover:underline mr-2 cursor-pointer" do %>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+              />
+            </svg>
+          <% end %>
+
+          <div data-controller="clipboard" class="flex items-center">
+            <input
+              data-clipboard-target="source"
+              class="font-extralight text-xs h-6 rounded-md hidden"
+              type="text"
+              value="<%= @short_link %>"
+              readonly
+            />
+
+            <button
+              data-clipboard-target="trigger"
+              data-action="clipboard#copy"
+              class="ml-2 cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+                data-target="clipboard.icon"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

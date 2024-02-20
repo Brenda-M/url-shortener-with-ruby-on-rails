@@ -1,0 +1,65 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= image_tag("rocket.svg", class: "mx-auto h-20 w-auto", alt: "SnappyUrl") %>
+    <h2 class="mt-4 text-center text-3xl font-bold leading-9 tracking-tight text-secondary">Join us today!</h2>
+    <p class="text-base text-center mt-3 text-white">
+      Shorten and share your links in a snap!
+    </p>
+  </div>
+
+  <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+    <div class="bg-white p-6 rounded shadow-md">
+ <%= form_with model: @user, url: auth_signup_url do |form| %>
+      <div class="mb-4">
+        <%= form.label :username, class: "block text-sm font-medium leading-6 text-balance" %>
+        <div class="mt-2">
+          <%= form.text_field :username, autocomplete: "username", class: "block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-secondary focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" %>
+        </div>
+        <% @user.errors.full_messages_for(:username).each do |message| %>
+          <div class="text-secondary mt-2 text-sm"><%= message %></div>
+        <% end %>
+      </div>
+
+      <div class="mb-4">
+        <%= form.label :email, class: "block text-sm font-medium leading-6 text-balance" %>
+        <div class="mt-2">
+          <%= form.email_field :email, autocomplete: "email", class: "block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-secondary focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" %>
+        </div>
+        <% @user.errors.full_messages_for(:email).each do |message| %>
+          <div class="text-secondary mt-2 text-sm"><%= message %></div>
+        <% end %>
+      </div>
+
+      <div class="mb-4">
+        <%= form.label :password, class: "block text-sm font-medium leading-6 text-black" %>
+        <div class="mt-2">
+          <%= form.password_field :password, class: "block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-secondary focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" %>
+          <% @user.errors.full_messages_for(:password).each do |message| %>
+            <div class="text-secondary mt-2 text-sm"><%= message %></div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <%= form.label :password_confirmation, class: "block text-sm font-medium leading-6 text-black" %>
+        <div class="mt-2">
+          <%= form.password_field :password_confirmation, class: "block w-full rounded-md border-0 bg-white/5 py-1.5 text-gray-800 shadow-sm ring-1 ring-inset ring-secondary focus:ring-2 focus:ring-inset focus:ring-black sm:text-sm sm:leading-6" %>
+          <% @user.errors.full_messages_for(:password_confirmation).each do |message| %>
+            <div class="text-secondary mt-2 text-sm"><%= message %></div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <%= form.submit "Sign up", class: "flex w-full justify-center rounded-md bg-secondary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary" %>
+      </div>
+    <% end %>
+
+    <p class="mt-4 text-center text-sm">
+      Already a member?
+      <%= link_to "Login", auth_login_url, class: "font-semibold leading-6 text-secondary hover:text-red-400" %>
+    </p>
+    </div>
+   
+  </div>
+</div>
