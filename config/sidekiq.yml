@@ -1,0 +1,6 @@
+:scheduler:
+  :schedule:
+    statistics_job:
+      queue: default
+      cron: '*/2 * * * *'  
+      class:  StatisticsJob

@@ -44,7 +44,7 @@ gem "bootsnap", require: false
 
 gem "sidekiq", "~> 7.2"
 
-
+gem "sidekiq-scheduler"
 
 # gem 'sidekiq-web'
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]

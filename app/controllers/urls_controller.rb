@@ -9,6 +9,23 @@ class UrlsController < ApplicationController
     @short_url = params[:short_url]
   end
 
+  # def create
+  #   @url = current_user.urls.build(url_params)
+  #   if @url.save
+  #     @original_url = @url.original_url
+  #     @short_link = @url.short_link
+  #     @short_url = @url.short_url
+
+  #     # LinkStatisticsJob.set(wait: 2.hours).perform_later(@url.id)
+  #     StatisticsJob.set(wait: 2.hours).perform_in(@url.id)
+
+  #     redirect_to root_path(short_link: @url.short_link, original_url: @url.original_url, short_url: @url.short_url), notice: 'URL was successfully created.'
+  #   else
+  #     render :index, status: :unprocessable_entity
+  #   end
+  # end
+
+
   def create
     @url = current_user.urls.build(url_params)
     if @url.save
@@ -16,14 +33,14 @@ class UrlsController < ApplicationController
       @short_link = @url.short_link
       @short_url = @url.short_url
 
-      LinkStatisticsJob.set(wait: 2.hours).perform_later(@url.id)
+      StatisticsJob.perform_in(2.minutes, @url.id)
+
 
       redirect_to root_path(short_link: @url.short_link, original_url: @url.original_url, short_url: @url.short_url), notice: 'URL was successfully created.'
     else
       render :index, status: :unprocessable_entity
     end
   end
-
 
   def show
     @urls = current_user.urls
