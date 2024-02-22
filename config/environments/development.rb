@@ -66,7 +66,6 @@ Rails.application.configure do
 
   config.active_job.queue_adapter = :sidekiq
 
-  config.force_ssl = true
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
