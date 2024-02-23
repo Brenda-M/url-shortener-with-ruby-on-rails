@@ -20,8 +20,8 @@ services:
     build:
       context: .
     command: bundle exec sidekiq 
-    links:
-      - postgres
+    depends_on:
+      - db
       - redis
     env_file:
       - .env
