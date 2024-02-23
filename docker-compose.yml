@@ -1,10 +1,14 @@
 version: "3"
 services:
-  web:
+  app:
     build: .
     command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - app-storage:/rails/storage
     ports:
       - "3000:3000"
+    environment:
+      RAILS_MASTER_KEY: 753c3f3c9ab6ece8996b728bae54a147
     depends_on:
       - db
       - redis

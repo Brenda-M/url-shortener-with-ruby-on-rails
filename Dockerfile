@@ -30,8 +30,6 @@ RUN bundle install && \
 # Copy application code
 COPY . .
 
-ENV RAILS_MASTER_KEY=753c3f3c9ab6ece8996b728bae54a147
-
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
