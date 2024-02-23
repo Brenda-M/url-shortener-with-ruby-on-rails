@@ -23,5 +23,3 @@ services:
     depends_on:
       - db
       - redis
-    env_file:
-      - .env
