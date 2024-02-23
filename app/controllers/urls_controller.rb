@@ -10,13 +10,17 @@ class UrlsController < ApplicationController
   end
 
   def create
+
     @url = current_user.urls.build(url_params)
+
     if @url.save
       @original_url = @url.original_url
       @short_link = @url.short_link
       @short_url = @url.short_url
 
-      LinkStatisticsJob.perform_later(current_user.id)
+    if current_user.urls.count == 1
+      LinkStatisticsJob.set(wait: 5.minutes).perform_later(current_user.id)
+    end
 
       redirect_to root_path(short_link: @url.short_link, original_url: @url.original_url, short_url: @url.short_url), notice: 'URL was successfully created.'
     else

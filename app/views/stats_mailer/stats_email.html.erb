@@ -1,31 +1,39 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>2-hour Analytics Insights</title>
-</head>
-<body style="font-family: 'Arial', sans-serif; background-color: #f4f4f4; color: #333; padding: 20px;">
+  <head>
+    <meta charset="utf-8" />
+    <title>2-hour Analytics Insights</title>
+  </head>
+  <body
+    style="font-family: 'Arial', sans-serif; background-color: #f4f4f4; color: #333; padding: 20px;"
+  >
+    <div
+      style="max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);"
+    >
+      <h2 style="color: #0066cc; margin-bottom: 20px;">
+        Hello <%= @user.username %>,
+      </h2>
 
-  <div style="max-width: 600px; margin: 0 auto; background-color: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-    <h2 style="color: #0066cc; margin-bottom: 20px;">Hello <%= @username %>,</h2>
+      <p style="font-size: 18px; font-weight: bold; color: #0066cc;">
+        Your Latest Link Insights
+      </p>
 
-    <p style="font-size: 16px;">Here is your 2-hour analytics snapshot for your SnappyUrl:</p>
-
-    <% if @urls.present? %>
-      <ul style="list-style: none; padding: 0; margin: 0;">
-        <% @urls.each do |url| %>
-          <li style="margin-bottom: 10px;">
-            <strong>Original URL:</strong> <%= link_to url, url %><br>
-            <strong>Short URL:</strong> <%= url %><br>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <p>No URLs to display</p>
-    <% end %>
-
-    <p style="font-size: 14px; color: #666;">Thank you for using SnappyUrl!</p>
-  </div>
-
-</body>
+      <% if @urls.present? %>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <% @urls.each do |url| %>
+            <li style="margin-bottom: 10px;">
+              <strong>Original URL:</strong> <%= url[:original_url] %><br />
+              <strong>Short URL:</strong> <%=
+                link_to url[:short_url], url[:short_link]
+              %><br />
+              <strong>Click Count:</strong> <%= url[:click] %><br />
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <p style="font-size: 14px; color: #666;">
+        Thank you for using SnappyUrl!
+      </p>
+    </div>
+  </body>
 </html>

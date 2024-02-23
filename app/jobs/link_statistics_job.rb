@@ -1,14 +1,15 @@
 class LinkStatisticsJob < ApplicationJob
+
   queue_as :default
+
+  after_perform do |job|
+    self.class.set(wait: 5.minutes).perform_later(job.arguments.first)
+  end
 
   def perform(user_id)
     user = User.find(user_id)
-    urls = user.urls.map { |url| url.short_link }
-
-    # Send email with all generated URLs
-    StatsMailer.stats_email(user, user.username, urls).deliver_later
-
-    # Reschedule the job for 2 hours later
+    urls = user.urls.map { |url| {original_url: url.original_url, short_link: url.short_link, click: url.click } }
+    StatsMailer.stats_email(user, urls).deliver_later
     self.class.set(wait: 5.minutes).perform_later(user.id)
   end
 end
