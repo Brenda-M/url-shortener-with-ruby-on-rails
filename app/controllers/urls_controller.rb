@@ -16,7 +16,7 @@ class UrlsController < ApplicationController
       @short_link = @url.short_link
       @short_url = @url.short_url
 
-      # LinkStatisticsJob.set(wait: 2.hours).perform_later(@url.id)
+      LinkStatisticsJob.perform_later(current_user.id)
 
       redirect_to root_path(short_link: @url.short_link, original_url: @url.original_url, short_url: @url.short_url), notice: 'URL was successfully created.'
     else
