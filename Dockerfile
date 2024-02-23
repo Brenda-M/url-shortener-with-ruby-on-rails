@@ -31,22 +31,14 @@ RUN bundle install && \
 COPY . .
 
 
-# COPY RAILS_MASTER_KEY= 753c3f3c9ab6ece8996b728bae54a147
+ENV RAILS_MASTER_KEY 753c3f3c9ab6ece8996b728bae54a147
 
-# # Precompile bootsnap code for faster boot times
-# RUN bundle exec bootsnap precompile app/ lib/
+# Precompile bootsnap code for faster boot times
+RUN bundle exec bootsnap precompile app/ lib/
 
-# # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-# RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-# Set the Rails environment to production
-ENV RAILS_ENV production
+# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
-# Use a build argument to pass the RAILS_MASTER_KEY during build
-ARG RAILS_MASTER_KEY
-ENV RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
-
-# Precompile assets using the master key
-RUN SECRET_KEY_BASE_DUMMY=1 RAILS_MASTER_KEY=${RAILS_MASTER_KEY} bundle exec rails assets:precompile
 
 # Final stage for app image
 FROM base
