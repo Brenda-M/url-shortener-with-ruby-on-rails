@@ -3,7 +3,7 @@ lock "~> 3.18.0"
 
 set :application, "snappy-url"
 set :repo_url, "git@github.com:Brenda-M/url-shortener-with-ruby-on-rails.git"
-set :deploy_to, '/home/dev/snappy-url'
+set :deploy_to, '/home/dev/snappy'
 set :branch, :main
 set :pty, true
 set :linked_files, %w{config/database.yml config/application.yml}

@@ -18,9 +18,9 @@ class UrlsController < ApplicationController
       @short_link = @url.short_link
       @short_url = @url.short_url
 
-    if current_user.urls.count == 1
-      LinkStatisticsJob.set(wait: 5.minutes).perform_later(current_user.id)
-    end
+      LinkStatisticsJob.perform_later(current_user.id)
+
+      Rails.logger.info("LinkStatisticsJob enqueued for user_id: #{current_user.id}")
 
       redirect_to root_path(short_link: @url.short_link, original_url: @url.original_url, short_url: @url.short_url), notice: 'URL was successfully created.'
     else
@@ -43,6 +43,7 @@ class UrlsController < ApplicationController
     @url = Url.find_by(short_url: params[:short_url])
     if @url
       @url.update_attribute(:click, @url.click.to_i + 1)
+      LinkStatisticsJob.perform_later(@url.user_id)
       redirect_to @url.original_url, allow_other_host: true
     else
       redirect_to root_path, status: 404

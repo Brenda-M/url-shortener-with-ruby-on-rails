@@ -5,6 +5,8 @@ ruby "3.0.0"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3"
 
+gem 'rake', '13.1.0'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
@@ -62,6 +64,7 @@ group :development do
   gem 'capistrano-rails', '~> 1.5', require: false
   gem 'capistrano-bundler', require: false
   gem 'capistrano-rvm'
+  gem 'capistrano-dotenv'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
@@ -86,4 +89,5 @@ gem 'font-awesome-rails', '~> 4.7', '>= 4.7.0.8'
 
 gem 'clipboard-rails'
 
-gem 'dotenv-rails', groups: [:development, :test]
+
+gem 'dotenv-rails', require: 'dotenv/load'
