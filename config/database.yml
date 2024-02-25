@@ -2,11 +2,8 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
-  username: postgres
+  username: admin
   password: admin
-  host: localhost
-  port: 5432
 
 development:
   <<: *default
@@ -19,3 +16,5 @@ test:
 production:
   <<: *default
   database: snappy_production
+  username: admin
+  password: admin
