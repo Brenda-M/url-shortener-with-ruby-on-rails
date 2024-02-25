@@ -1,7 +1,7 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.18.0"
 
-set :application, "snappy-url"
+set :application, "snappy"
 set :repo_url, "git@github.com:Brenda-M/url-shortener-with-ruby-on-rails.git"
 set :deploy_to, '/home/dev/snappy'
 set :branch, :main
