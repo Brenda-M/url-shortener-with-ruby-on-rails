@@ -26,3 +26,18 @@ set :puma_workers, 0
 set :puma_worker_timeout, nil
 set :puma_init_active_record, true
 set :puma_preload_app, false
+
+namespace :deploy do
+  desc 'Load schema'
+  task :load_schema do
+    on roles(:db) do
+      within release_path do
+        with rails_env: fetch(:rails_env) do
+          execute :bundle, :exec, :rake, 'db:schema:load'
+        end
+      end
+    end
+  end
+
+  after 'deploy:publishing', 'deploy:load_schema'
+end
