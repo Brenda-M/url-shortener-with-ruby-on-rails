@@ -1,0 +1,42 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      target: build
+    environment:
+      RAILS_ENV: production
+      DB_USERNAME: admin
+      DB_PASSWORD: admin
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+      - redis
+      - sidekiq
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+
+  sidekiq:
+    build:
+      context: .
+      target: build
+    command: bundle exec sidekiq
+    environment:
+      RAILS_ENV: production
+      DB_USERNAME: admin
+      DB_PASSWORD: admin
+    depends_on:
+      - postgres
+      - redis

@@ -12,8 +12,8 @@ node_modules/
 config/database.yml
 
 # Ignore all environment files (except templates).
-# /.env*
-# !/.env*.erb
+/.env*
+!/.env*.erb
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -27,11 +27,11 @@ config/database.yml
 !/tmp/pids/.keep
 
 # Ignore storage (uploaded files in development and any SQLite databases).
-/storage/*
-!/storage/.keep
-/tmp/storage/*
-!/tmp/storage/
-!/tmp/storage/.keep
+# /storage/*
+# !/storage/.keep
+# /tmp/storage/*
+# !/tmp/storage/
+# !/tmp/storage/.keep
 
 /public/assets
 
