@@ -53,7 +53,8 @@ RUN mkdir -p /rails/log
 
 # Run and own only the runtime files as a non-root user for security
 RUN useradd rails --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    chown -R rails:rails /rails && \
+    echo 'export PATH="$HOME/.bundle/bin:$PATH"' >> /home/rails/.bashrc
 USER rails:rails
 
 # Entrypoint prepares the database.
