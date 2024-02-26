@@ -1,42 +1,98 @@
-version: '3'
-services:
-  app:
-    build:
-      context: .
-      target: build
-    environment:
-      RAILS_ENV: production
-      DB_USERNAME: admin
-      DB_PASSWORD: admin
-    ports:
-      - "3000:3000"
-    depends_on:
-      - postgres
-      - redis
-      - sidekiq
+# version: '3'
 
+# services:
+#   app:
+#     build:
+#       context: .
+#       target: build
+#     command: bundle exec rails s -p 3000 -e development -b '0.0.0.0'
+#     environment:
+#       RAILS_ENV: development
+#       DB_USERNAME: admin
+#       DB_PASSWORD: admin
+#     ports:
+#       - "3000:3000"
+#     depends_on:
+#       - postgres
+#       - redis
+#       - sidekiq
+
+#   postgres:
+#     image: postgres:latest
+#     environment:
+#       POSTGRES_USER: admin
+#       POSTGRES_PASSWORD: admin
+#     ports:
+#       - "5433:5432"
+
+#   redis:
+#     image: redis:latest
+#     ports:
+#       - "6379:6379"
+
+#   sidekiq:
+#     build:
+#       context: .
+#       target: build
+#     command: bundle exec sidekiq
+#     environment:
+#       RAILS_ENV: production
+#       DB_USERNAME: admin
+#       DB_PASSWORD: admin
+#     depends_on:
+#       - postgres
+#       - redis
+version: "3"
+
+x-app: &app
+  build:
+    context: .
+    dockerfile: Dockerfile
+  environment:
+    REDIS_URL: redis://@redis:6379/1
+    DATABASE_URL: postgres://postgres:postgres@postgres:5432/
+  depends_on:
+    - postgres
+    - redis
+
+services:
   postgres:
-    image: postgres:latest
+    image: postgres:13.2-alpine
+    volumes:
+      - postgresql:/var/lib/postgresql/data:delegated
+    # Uncomment to access this containers Postgres instance via port 5432
+    #ports:
+      #- "127.0.0.1:5432:5432"
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-    ports:
-      - "5433:5432"
+      PSQL_HISTFILE: /root/log/.psql_history
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    restart: on-failure
+    logging:
+      driver: none
 
   redis:
-    image: redis:latest
+    image: redis:6.0.12-alpine
+    volumes:
+      - redis:/data:delegated
+    # Uncomment to access this containers Redis instance via port 6379
     ports:
-      - "6379:6379"
+      - "127.0.0.1:6379:6379"
+    restart: on-failure
+    logging:
+      driver: none
 
-  sidekiq:
-    build:
-      context: .
-      target: build
+  web:
+    <<: *app
+
+    command: bundle exec rails s -p 3000 -e development -b '0.0.0.0'
+    ports:
+      - "127.0.0.1:3000:3000"
+
+  worker:
+    <<: *app
     command: bundle exec sidekiq
-    environment:
-      RAILS_ENV: production
-      DB_USERNAME: admin
-      DB_PASSWORD: admin
-    depends_on:
-      - postgres
-      - redis
+
+volumes:
+  postgresql:
+  redis:
