@@ -77,11 +77,11 @@
     <div class="mt-auto">
       <div class="pt-6">
         <% if user_signed_in? %>
-          <%= link_to 'Dashboard', show_urls_path, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
-          <%= link_to 'Signout', auth_logout_path, class: "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" %>
+          <%= link_to 'Dashboard', show_urls_path, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none" %>
+          <%= link_to 'Signout', auth_logout_path, class: "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-secondary hover:bg-pink-400  rounded-xl" %>
         <% else %>
-          <%= link_to 'Sign In', auth_login_url, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 rounded-xl" %>
-          <%= link_to 'Sign Up', auth_signup_path, class: "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-blue-600 hover:bg-blue-700  rounded-xl" %>
+          <%= link_to 'Sign In', auth_login_url, class: "block px-4 py-3 mb-3 leading-loose text-xs text-center font-semibold leading-none bg-gray-50 hover:bg-gray-100 text-sm text-gray-900 font-bold rounded-xl transition duration-200" %>
+          <%= link_to 'Sign Up', auth_signup_path, class: "block px-4 py-3 mb-2 leading-loose text-xs text-center text-white font-semibold bg-secondary hover:bg-pink-400  rounded-xl" %>
         <% end %>
       </div>
     </div>
