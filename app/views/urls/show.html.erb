@@ -1,130 +1,137 @@
 <div class="flex flex-col">
   <div class="flex items-center mb-4">
-    <h2 class="text-4xl text-white font-semibold mr-4">
-      Hello, <%= current_user.username %>
-    </h2>
-    <%= image_tag('wave.png', class: 'h-6 w-auto', alt: 'SnappyUrl') %>
-  </div>
-  <p class="text-lg mb-8 text-secondary">Track your links below:</p>
+ <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white font-bold mb-2">
+  Hello, <%= current_user.username.capitalize %>
+</h2>
 
-  <div
-    class="overflow-x-auto sm:-mx-6 lg:-mx-8 rounded-lg shadow-lg border-t-4 border-secondary bg-white"
-  >
-    <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-      <div class="overflow-hidden">
-        <% if @urls.present? %>
-          <table class="min-w-full text-left text-sm font-light">
-            <thead
-              class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-600"
-            >
-              <tr>
-                <th scope="col" class="px-6 py-4">#</th>
-                <th scope="col" class="px-6 py-4">Original URL</th>
-                <th scope="col" class="px-6 py-4">Short URL</th>
-                <th scope="col" class="px-6 py-4">Clicks</th>
-                <th scope="col" class="px-6 py-4">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @urls.each_with_index do |url, index| %>
-                <tr
-                  class="<%=
+    <%= image_tag('wave.png', class: 'h-6 w-auto', alt: 'wave') %>
+  </div>
+  <% if @urls.present? %>
+    <p class="text-lg mb-8 text-secondary font-medium">
+      Track your links below:
+    </p>
+    <div
+      class="overflow-x-auto sm:-mx-6 lg:-mx-8 rounded-lg shadow-lg border-t-4 border-secondary bg-white min-w-full"
+    >
+      <table
+        class="min-w-full py-2 sm:px-6 lg:px-8 text-left text-sm font-light"
+      >
+        <thead
+          class="border-b bg-white font-medium dark:border-neutral-500 dark:bg-neutral-600"
+        >
+          <tr>
+            <th scope="col" class="px-6 py-4">#</th>
+            <th scope="col" class="px-6 py-4">Original URL</th>
+            <th scope="col" class="px-6 py-4">Short URL</th>
+            <th scope="col" class="px-6 py-4">Clicks</th>
+            <th scope="col" class="px-6 py-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @urls.each_with_index do |url, index| %>
+            <tr
+              class="<%=
   if index.odd?
     'bg-neutral-100 dark:bg-neutral-700'
   else
     'bg-white dark:bg-neutral-600'
   end
 %>"
-                >
-                  <td class="whitespace-nowrap px-6 py-4 font-medium">
-                    <%= index + 1 %>
-                  </td>
-                  <td
-                    class="whitespace-nowrap px-6 py-4 overflow-hidden overflow-ellipsis max-w-[200px]"
-                  >
-                    <%= url.original_url %>
-                  </td>
-
-                  <td class="whitespace-nowrap px-6 py-4">
-                    <%= url.short_link %>
-                  </td>
-                  <td class="whitespace-nowrap px-6 py-4">
-                    <%= url.click || 0 %>
-                  </td>
-                  <td class="whitespace-nowrap px-6 py-4">
-                    <div class="flex gap-1 justify-between">
-                      <%= link_to short_link_url(short_url: url.short_url), target: "_blank", class: "text-blue-600 hover:underline" do %>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke-width="1.5"
-                          stroke="currentColor"
-                          class="w-6 h-6"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
-                          />
-                        </svg>
-                      <% end %>
-
-                      <div data-controller="clipboard">
-                        <input
-                          data-clipboard-target="source"
-                          class="font-extralight text-xs h-6 rounded-md hidden"
-                          type="text"
-                          value="<%= url.short_link %>"
-                          readonly
+            >
+              <td class="whitespace-nowrap px-6 py-4 font-medium">
+                <%= index + 1 %>
+              </td>
+              <td
+                class="whitespace-nowrap px-6 py-4 overflow-hidden overflow-ellipsis max-w-[200px]"
+              >
+                <%= url.original_url %>
+              </td>
+              <td class="whitespace-nowrap px-6 py-4">
+                <%= url.short_link %>
+              </td>
+              <td class="whitespace-nowrap px-6 py-4">
+                <%= url.click || 0 %>
+              </td>
+              <td class="whitespace-nowrap px-6 py-4">
+                <div class="flex gap-1 justify-between">
+                  <%= link_to short_link_url(short_url: url.short_url), target: "_blank", class: "text-blue-600 hover:underline" do %>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke-width="1.5"
+                      stroke="currentColor"
+                      class="w-6 h-6"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                      />
+                    </svg>
+                  <% end %>
+                  <div data-controller="clipboard">
+                    <input
+                      data-clipboard-target="source"
+                      class="font-extralight text-xs h-6 rounded-md hidden"
+                      type="text"
+                      value="<%= url.short_link %>"
+                      readonly
+                    />
+                    <button
+                      data-clipboard-target="trigger"
+                      data-action="clipboard#copy"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="w-6 h-6"
+                        data-target="clipboard.icon"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"
                         />
-
-                        <button
-                          data-clipboard-target="trigger"
-                          data-action="clipboard#copy"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                            class="w-6 h-6"
-                            data-target="clipboard.icon"
-                          >
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
-                      <%= link_to url_path(url), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-red-600 hover:text-red-800" do %>
-                        <svg
-                          class="h-6 w-6"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 448 512"
-                        >
-                          <path
-                            d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"
-                            fill="#BD3A4A"
-                          />
-                        </svg>
-                      <% end %>
-                    </div>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-
-        <%= link_to "Delete All", delete_all_urls_path, class: "text-red-600 hover:text-red-800", method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }%>
-
-        <% else %>
-          <p class="text-gray-600">No URLs found.</p>
-        <% end %>
-      </div>
+                      </svg>
+                    </button>
+                  </div>
+                  <%= link_to url_path(url), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "text-red-600 hover:text-red-800" do %>
+                    <svg
+                      class="h-6 w-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                    >
+                      <path
+                        d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z"
+                        fill="#BD3A4A"
+                      />
+                    </svg>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
-  </div>
+    <%=
+      link_to 'Delete All',
+              delete_all_urls_path,
+              class: 'text-red-600 hover:text-red-800',
+              method: :delete,
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: 'Are you sure?',
+              }
+    %>
+  <% else %>
+    <div class="flex flex-col items-center justify-center">
+      <%= image_tag 'nothing-yet2.png', class: 'max-w-full h-auto mb-4 mt-4' %>
+      <p class="text-white text-center">You haven't generated any links yet.</p>
+    </div>
+  <% end %>
 </div>

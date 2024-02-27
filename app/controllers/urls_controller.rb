@@ -17,11 +17,6 @@ class UrlsController < ApplicationController
       @original_url = @url.original_url
       @short_link = @url.short_link
       @short_url = @url.short_url
-
-      LinkStatisticsJob.perform_later(current_user.id)
-
-      Rails.logger.info("LinkStatisticsJob enqueued for user_id: #{current_user.id}")
-
       redirect_to root_path(short_link: @url.short_link, original_url: @url.original_url, short_url: @url.short_url), notice: 'URL was successfully created.'
     else
       render :index, status: :unprocessable_entity

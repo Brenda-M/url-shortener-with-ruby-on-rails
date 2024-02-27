@@ -1,10 +1,10 @@
-<div class="min-h-screen flex items-center mt-4 p-4">
+<div class="flex items-center mt-4 p-4">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center w-full">
     <div class="order-2 md:order-1">
       <div class="flex flex-col items-center md:items-start">
-        <div class="mb-4">
+        <div class="mb-2">
           <h1
-            class="text-xl sm:text-xl md:text-4xl whitespace-nowrap font-bold mb-2 text-white text-center sm:text-left leading-normal"
+            class="whitespace-nowrap font-bold mb-2 text-white text-center sm:text-left text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
           >
             Generate <span class="text-secondary">Concise</span> and<span
               class="text-secondary"
@@ -12,14 +12,18 @@
             >
             Short Links
           </h1>
+
           <div>
-            <p class="text-gray-500 text-center sm:text-left mb-6">
-              Build your brand’s recognition and get detailed <br />insights on
-              how your links are performing.
+            <p
+              class="text-gray-500 text-center mt-2 sm:text-left mb-6 text-base sm:text-sm"
+            >
+              Build your brand’s recognition and get detailed <br />
+              insights on how your links are performing.
             </p>
           </div>
         </div>
-        <div class="w-full">
+
+        <div class="w-full mx-auto">
           <%= render 'form' %>
         </div>
       </div>

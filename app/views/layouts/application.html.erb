@@ -24,7 +24,7 @@
   </head>
   <body class="flex flex-col min-h-screen bg-main">
     <%= render 'shared/navbar' %>
-    <div class="container mx-auto mt-4 p-4 flex flex-col relative">
+    <div class="container mx-auto mt-4 p-2 flex flex-col relative">
       <% flash.each do |type, msg| %>
         <div
           class="<%= flash_class %> absolute top-0 left-1/2 transform -translate-x-1/2 max-w-md mx-auto text-center px-4 py-2 rounded mb-4 flash-message opacity-100 transition-opacity duration-300 sm:w-full md:w-2/3 lg:w-1/2 xl:w-1/3"

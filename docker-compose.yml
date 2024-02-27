@@ -6,7 +6,6 @@ x-app: &app
     dockerfile: Dockerfile
   environment:
     RAILS_ENV: production
-    REDIS_URL: redis://@redis:6379/1
     DATABASE_URL: postgres://postgres:postgres@postgres:5432/
   depends_on:
     - postgres
@@ -26,7 +25,7 @@ services:
       driver: none
 
   redis:
-    image: redis:6.0.12-alpine
+    image: redis:7.2.4-alpine
     volumes:
       - redis:/data:delegated
     ports:
