@@ -7,6 +7,8 @@ x-app: &app
   environment:
     RAILS_ENV: production
     DATABASE_URL: postgres://postgres:postgres@postgres:5432/
+    REDIS_URL: redis://redis:6379/0 
+
   depends_on:
     - postgres
     - redis
@@ -28,8 +30,6 @@ services:
     image: redis:7.2.4-alpine
     volumes:
       - redis:/data:delegated
-    ports:
-      - "6379:6379"
     restart: on-failure
     logging:
       driver: none
