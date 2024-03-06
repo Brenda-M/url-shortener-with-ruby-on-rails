@@ -1,0 +1,28 @@
+:verbose: false
+:concurrency: 25
+:queues:
+  - [default, 5]
+:logfile: ./log/sidekiq.log
+
+:pidfile: ./tmp/pids/sidekiq.pid
+
+:staging:
+  :concurrency: 10
+
+:production:
+  :concurrency: 50
+
+:development:
+  :concurrency: 5
+
+:redis:
+  :url: 'redis://127.0.0.1:6379/0'
+  :namespace: 'sidekiq'
+
+# :scheduler:
+#   :schedule:
+#     link_statistics_job:
+#       cron: '* * * * *'   # Runs once per minute
+#       class: LinkStatisticsJob
+
+ 

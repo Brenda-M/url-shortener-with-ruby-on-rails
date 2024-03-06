@@ -10,13 +10,13 @@ class UrlsController < ApplicationController
   end
 
   def create
-
     @url = current_user.urls.build(url_params)
 
     if @url.save
       @original_url = @url.original_url
       @short_link = @url.short_link
       @short_url = @url.short_url
+      LinkStatisticsJob.set(wait: 3.minutes).perform_later(current_user.id) if current_user.urls.count == 1
       redirect_to root_path(short_link: @url.short_link, original_url: @url.original_url, short_url: @url.short_url), notice: 'URL was successfully created.'
     else
       render :index, status: :unprocessable_entity
@@ -38,7 +38,6 @@ class UrlsController < ApplicationController
     @url = Url.find_by(short_url: params[:short_url])
     if @url
       @url.update_attribute(:click, @url.click.to_i + 1)
-      LinkStatisticsJob.perform_later(@url.user_id)
       redirect_to @url.original_url, allow_other_host: true
     else
       redirect_to root_path, status: 404

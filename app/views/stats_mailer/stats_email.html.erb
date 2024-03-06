@@ -18,15 +18,15 @@
         Your Latest Link Insights
       </p>
 
-      <% if @urls.present? %>
+      <% if @urls_info.present? %>
         <ul style="list-style: none; padding: 0; margin: 0;">
-          <% @urls.each do |url| %>
+          <% @urls_info.each do |url_info| %>
             <li style="margin-bottom: 10px;">
-              <strong>Original URL:</strong> <%= url[:original_url] %><br />
-              <strong>Short URL:</strong> <%=
-                link_to url[:short_url], url[:short_link]
+              <strong>Original URL:</strong> <%=
+                url_info[:original_url]
               %><br />
-              <strong>Click Count:</strong> <%= url[:click] %><br />
+              <strong>Short URL:</strong> <%= url_info[:short_url] %><br />
+              <strong>Click Count:</strong> <%= url_info[:click] %><br />
             </li>
           <% end %>
         </ul>

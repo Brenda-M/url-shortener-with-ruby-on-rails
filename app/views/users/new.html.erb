@@ -51,13 +51,13 @@
       </div>
 
       <div class="mb-4">
-        <%= form.submit "Sign up", class: "flex w-full justify-center rounded-md bg-secondary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary" %>
+        <%= form.submit "Sign up", class: "flex w-full cursor-pointer justify-center rounded-md bg-secondary px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary" %>
       </div>
     <% end %>
 
     <p class="mt-4 text-center text-sm">
       Already a member?
-      <%= link_to "Login", auth_login_url, class: "font-semibold leading-6 text-secondary hover:text-red-400" %>
+      <%= link_to "Sign in", auth_login_url, class: "font-semibold leading-6 text-secondary hover:text-red-400" %>
     </p>
     </div>
    
