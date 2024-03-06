@@ -16,7 +16,7 @@ class UrlsController < ApplicationController
       @original_url = @url.original_url
       @short_link = @url.short_link
       @short_url = @url.short_url
-      LinkStatisticsJob.set(wait: 3.minutes).perform_later(current_user.id) if current_user.urls.count == 1
+      LinkStatisticsJob.set(wait: 2.hours).perform_later(current_user.id) if current_user.urls.count == 1
       redirect_to root_path(short_link: @url.short_link, original_url: @url.original_url, short_url: @url.short_url), notice: 'URL was successfully created.'
     else
       render :index, status: :unprocessable_entity
